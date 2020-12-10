@@ -15,10 +15,10 @@ interface StudentDao {
     fun getById(id:Int): LiveData<Student>
 
     @Insert
-    suspend fun insert(course: Course)
+    suspend fun insert(student: Student)
 
     @Delete
-    suspend fun delete(course: Course)
+    suspend fun delete(student: Student)
 
     // TODO: @Update
 }
