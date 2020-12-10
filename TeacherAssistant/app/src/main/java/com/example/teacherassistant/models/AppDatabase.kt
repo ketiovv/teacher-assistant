@@ -1,4 +1,7 @@
 package com.example.teacherassistant.models
 
-class AppDatabase {
+import androidx.room.RoomDatabase
+
+abstract class AppDatabase:RoomDatabase() {
+
 }
