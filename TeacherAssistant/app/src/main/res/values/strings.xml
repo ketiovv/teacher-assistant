@@ -11,4 +11,6 @@
     <string name="student_list">Student list</string>
     <string name="add">add</string>
     <string name="cancel">cancel</string>
+    <string name="student_courses">Student courses</string>
+    <string name="course_students">Course students</string>
 </resources>
