@@ -12,13 +12,12 @@ import kotlinx.coroutines.launch
 class StudentListViewModel(application: Application):AndroidViewModel(application) {
     val students:LiveData<List<Student>> =
         AppDatabase.getDatabase(application).studentDao().getAll()
-    val studentRepository:StudentRepository =
+    private val studentRepository:StudentRepository =
         StudentRepository(AppDatabase.getDatabase(application).studentDao())
 
-    init {
-        // test
+    fun addStudent(firstName:String, lastName:String){
         viewModelScope.launch {
-            studentRepository.add(Student(0,"James","Harden"))
+            studentRepository.add(Student(0,firstName,lastName))
         }
     }
 }

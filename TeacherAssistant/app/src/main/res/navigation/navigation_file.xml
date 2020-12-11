@@ -62,7 +62,11 @@
         android:id="@+id/studentAddFragment"
         android:name="com.example.teacherassistant.views.StudentAddFragment"
         android:label="StudentAddFragment"
-        tools:layout="@layout/fragment_student_add"/>
+        tools:layout="@layout/fragment_student_add">
+        <action
+            android:id="@+id/action_studentAddFragment_to_studentListFragment"
+            app:destination="@id/studentListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/courseDetailsFragment"
         android:name="com.example.teacherassistant.views.CourseDetailsFragment"

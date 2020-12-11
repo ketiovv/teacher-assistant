@@ -49,6 +49,7 @@ class CourseAddFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         buttonAddCourse.setOnClickListener{
             if (!editTextNewCourseName.text.toString().isNullOrBlank()){
                 courseListViewModel.addCourse(editTextNewCourseName.text.toString())
@@ -61,7 +62,7 @@ class CourseAddFragment : Fragment() {
         }
 
     }
-    fun navigateToCourseList(view : View){
+    private fun navigateToCourseList(view : View){
         view.findNavController().navigate(R.id.action_courseAddFragment_to_courseListFragment)
     }
 
