@@ -16,9 +16,9 @@ class CourseListViewModel(application: Application): AndroidViewModel(applicatio
         CourseRepository(AppDatabase.getDatabase(application).courseDao())
 
     init {
+        // test
         viewModelScope.launch {
             courseRepository.add(Course(0,"test"))
         }
     }
-    // TODO: Add some test courses
 }
