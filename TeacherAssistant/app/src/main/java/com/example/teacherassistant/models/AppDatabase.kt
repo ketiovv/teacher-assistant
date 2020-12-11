@@ -12,8 +12,8 @@ import androidx.room.RoomDatabase
     exportSchema = false)
 abstract class AppDatabase:RoomDatabase() {
 
-    abstract fun CourseDao():CourseDao
-    abstract fun StudentDao():StudentDao
+    abstract fun courseDao():CourseDao
+    abstract fun studentDao():StudentDao
 
     companion object{
         @Volatile
