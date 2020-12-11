@@ -7,21 +7,27 @@
 
 
     <TextView
-        android:id="@+id/textViewCourseName"
+        android:id="@+id/textViewStudentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="name" />
+    <TextView
+        android:id="@+id/textViewStudentLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="name" />
 
     <Button
-        android:id="@+id/buttonOpenCourse"
+        android:id="@+id/buttonStudentCourses"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:text="Open" />
 
     <Button
-        android:id="@+id/buttonEditCourse"
+        android:id="@+id/buttonEditStudent"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_weight="0"
