@@ -17,7 +17,9 @@ import kotlinx.android.synthetic.main.fragment_course_list.*
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+// --- mine code ---
 private lateinit var courseListViewModel: CourseListViewModel
+// --- --- --- --- ---
 
 
 /**
@@ -68,10 +70,12 @@ class CourseListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // --- mine code ---
         recyclerViewCourses.apply{
             adapter = courseListAdapter
             layoutManager = viewManager
         }
+        // --- --- --- --- ---
     }
 
     companion object {
