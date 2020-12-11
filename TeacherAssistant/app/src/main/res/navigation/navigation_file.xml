@@ -53,7 +53,11 @@
         android:id="@+id/courseAddFragment"
         android:name="com.example.teacherassistant.views.CourseAddFragment"
         android:label="CourseAddFragment"
-        tools:layout="@layout/fragment_course_add"/>
+        tools:layout="@layout/fragment_course_add">
+        <action
+            android:id="@+id/action_courseAddFragment_to_courseListFragment"
+            app:destination="@id/courseListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/studentAddFragment"
         android:name="com.example.teacherassistant.views.StudentAddFragment"

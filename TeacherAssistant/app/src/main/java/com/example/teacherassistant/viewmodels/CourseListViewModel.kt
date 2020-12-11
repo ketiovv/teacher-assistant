@@ -15,10 +15,10 @@ class CourseListViewModel(application: Application): AndroidViewModel(applicatio
     private val courseRepository:CourseRepository =
         CourseRepository(AppDatabase.getDatabase(application).courseDao())
 
-    init {
-        // test
+
+    fun addCourse(name: String){
         viewModelScope.launch {
-            courseRepository.add(Course(0,"test"))
+            courseRepository.add(Course(0,name))
         }
     }
 }
