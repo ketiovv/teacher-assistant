@@ -3,8 +3,11 @@ package com.example.teacherassistant.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.models.Student
@@ -25,6 +28,14 @@ class StudentListAdapter(var students:LiveData<List<Student>>) :RecyclerView.Ada
 
         textViewName.text = students.value?.get(position)?.firstName
         textViewLastName.text = students.value?.get(position)?.lastName
+
+        var buttonOpenStudent= holder.itemView.findViewById<Button>(R.id.buttonStudentCourses)
+        buttonOpenStudent.setOnClickListener{ view ->
+            view.findNavController().navigate(
+                R.id.action_studentListFragment_to_studentDetailsFragment,
+                bundleOf("student" to students.value?.get(position))
+            )
+        }
     }
 
     override fun getItemCount(): Int = students.value?.size?:0
