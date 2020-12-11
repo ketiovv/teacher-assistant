@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
@@ -74,6 +75,10 @@ class CourseListFragment : Fragment() {
         recyclerViewCourses.apply{
             adapter = courseListAdapter
             layoutManager = viewManager
+        }
+
+        buttonNewCourse.setOnClickListener{ view ->
+            view.findNavController().navigate(R.id.action_courseListFragment_to_courseAddFragment)
         }
         // --- --- --- --- ---
     }
