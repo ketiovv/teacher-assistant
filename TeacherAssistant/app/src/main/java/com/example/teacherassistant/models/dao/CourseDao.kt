@@ -1,7 +1,8 @@
-package com.example.teacherassistant.models
+package com.example.teacherassistant.models.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.teacherassistant.models.entities.Course
 
 @Dao
 interface CourseDao {

@@ -1,10 +1,11 @@
-package com.example.teacherassistant.models
+package com.example.teacherassistant.models.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.teacherassistant.models.entities.Grade
 
 @Dao
 interface GradeDao {
