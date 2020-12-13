@@ -5,30 +5,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="views.CourseListFragment">
+    tools:context="views.GradesStudentInCourseFragment">
 
     <TextView
-        android:id="@+id/textViewCourseList"
+        android:id="@+id/textViewGradesCourseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/course_list"
+        android:text="course"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintHorizontal_bias="0.342"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintVertical_bias="0.056" />
+
+    <TextView
+        android:id="@+id/textViewGradesStudentLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lastName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
 
     <Button
-        android:id="@+id/buttonNewCourse"
+        android:id="@+id/buttonAddGrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/new_course"
+        android:text="Add grade"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.88"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.027" />
+        app:layout_constraintVertical_bias="0.118" />
+
+    <TextView
+        android:id="@+id/textViewLabelGradeList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grade list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.136" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewGrades"

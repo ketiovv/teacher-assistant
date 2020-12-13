@@ -72,7 +72,7 @@ class CourseListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // --- mine code ---
-        recyclerViewCourses.apply{
+        recyclerViewGrades.apply{
             adapter = courseListAdapter
             layoutManager = viewManager
         }
