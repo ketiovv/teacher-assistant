@@ -1,4 +1,4 @@
-package com.example.teacherassistant.models
+package com.example.teacherassistant.models.entities
 
 import android.os.Parcel
 import android.os.Parcelable

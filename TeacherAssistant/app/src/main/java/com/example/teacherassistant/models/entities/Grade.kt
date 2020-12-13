@@ -1,4 +1,4 @@
-package com.example.teacherassistant.models
+package com.example.teacherassistant.models.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,4 +11,4 @@ data class Grade(@PrimaryKey(autoGenerate = true)
                  val studentCourseId:Int,
                  val grade: GradeValue,
                  val note: String,
-                 val date: Date)
+                 val date: String)
