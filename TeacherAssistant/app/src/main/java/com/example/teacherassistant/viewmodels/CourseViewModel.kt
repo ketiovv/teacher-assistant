@@ -1,9 +1,7 @@
 package com.example.teacherassistant.viewmodels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.teacherassistant.models.AppDatabase
 import com.example.teacherassistant.models.entities.Course
 import com.example.teacherassistant.models.entities.StudentCourse
@@ -12,18 +10,27 @@ import com.example.teacherassistant.models.repositories.StudentCourseRepository
 import kotlinx.coroutines.launch
 
 class CourseViewModel(application: Application): AndroidViewModel(application) {
-    val courses:LiveData<List<Course>> =
-        AppDatabase.getDatabase(application).courseDao().getAll()
+    val studentId = MutableLiveData<Int>()
+    val courses:LiveData<List<Course>>
 
     private val courseRepository:CourseRepository =
         CourseRepository(AppDatabase.getDatabase(application).courseDao())
-//    private val studentCourseRepository:StudentCourseRepository =
-//        StudentCourseRepository(AppDatabase.getDatabase(application).studentCourseDao())
+
 
     init {
-//        viewModelScope.launch {
-//            studentCourseRepository.add(StudentCourse(1, 1 ,1))
-//        }
+        courses = Transformations.switchMap(studentId) { id ->
+            if(id == 0) {
+                return@switchMap courseRepository.readAll
+            }
+            else {
+                return@switchMap courseRepository.readAllCoursesForStudent(id)
+            }
+        }
+
+    }
+
+    fun setStudentId(id:Int){
+        studentId.value = id
     }
 
     fun addCourse(name: String){

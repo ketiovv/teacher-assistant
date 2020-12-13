@@ -57,7 +57,7 @@ class StudentListFragment : Fragment() {
         viewManager = LinearLayoutManager(context)
 
         studentListAdapter = StudentListAdapter(studentsViewModel.students)
-
+        studentsViewModel.setCourseId(0)
         studentsViewModel.students.observe(viewLifecycleOwner,{
             studentListAdapter.notifyDataSetChanged()
         })
