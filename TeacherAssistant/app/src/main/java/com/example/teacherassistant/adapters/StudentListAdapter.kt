@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
-import com.example.teacherassistant.models.Student
+import com.example.teacherassistant.models.entities.Student
 
 class StudentListAdapter(var students:LiveData<List<Student>>) :RecyclerView.Adapter<StudentListAdapter.StudentHolder>() {
     inner class StudentHolder(view: View):RecyclerView.ViewHolder(view)

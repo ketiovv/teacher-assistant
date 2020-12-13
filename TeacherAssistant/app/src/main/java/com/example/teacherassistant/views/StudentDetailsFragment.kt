@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.teacherassistant.R
-import com.example.teacherassistant.models.Student
+import com.example.teacherassistant.models.entities.Student
 import kotlinx.android.synthetic.main.fragment_student_details.*
 
 private const val ARG_STUDENT = "student"
 
 
 class StudentDetailsFragment : Fragment() {
-private lateinit var student:Student
+private lateinit var student: Student
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.teacherassistant.R
-import com.example.teacherassistant.viewmodels.StudentListViewModel
-import kotlinx.android.synthetic.main.fragment_course_add.*
+import com.example.teacherassistant.viewmodels.StudentViewModel
 import kotlinx.android.synthetic.main.fragment_student_add.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,7 +25,7 @@ class StudentAddFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var studentListViewModel: StudentListViewModel
+    private lateinit var studentViewModel: StudentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +39,8 @@ class StudentAddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        studentListViewModel = ViewModelProvider(requireActivity())
-            .get(StudentListViewModel::class.java)
+        studentViewModel = ViewModelProvider(requireActivity())
+            .get(StudentViewModel::class.java)
 
 
         // Inflate the layout for this fragment
@@ -54,7 +53,7 @@ class StudentAddFragment : Fragment() {
         buttonAddStudent.setOnClickListener{
             if (!editTextNewStudentFirstName.text.toString().isNullOrBlank() &&
                 !editTextNewStudentLastName.text.toString().isNullOrBlank()){
-                studentListViewModel.addStudent(
+                studentViewModel.addStudent(
                     editTextNewStudentFirstName.text.toString(),
                     editTextNewStudentLastName.text.toString())
             }

@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.adapters.StudentListAdapter
-import com.example.teacherassistant.viewmodels.StudentListViewModel
-import kotlinx.android.synthetic.main.fragment_course_list.*
+import com.example.teacherassistant.viewmodels.StudentViewModel
 import kotlinx.android.synthetic.main.fragment_student_list.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_student_list.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 // --- mine code ---
-private lateinit var studentsViewModel:StudentListViewModel
+private lateinit var studentsViewModel:StudentViewModel
 // --- --- --- --- ---
 
 /**
@@ -54,7 +53,7 @@ class StudentListFragment : Fragment() {
 
         // --- mine code ---
         studentsViewModel = ViewModelProvider(requireActivity())
-            .get(StudentListViewModel::class.java)
+            .get(StudentViewModel::class.java)
         viewManager = LinearLayoutManager(context)
 
         studentListAdapter = StudentListAdapter(studentsViewModel.students)

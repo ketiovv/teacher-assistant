@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.teacherassistant.R
-import com.example.teacherassistant.viewmodels.CourseListViewModel
+import com.example.teacherassistant.viewmodels.CourseViewModel
 import kotlinx.android.synthetic.main.fragment_course_add.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,7 +26,7 @@ class CourseAddFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var courseListViewModel:CourseListViewModel
+    private lateinit var courseViewModel:CourseViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +40,8 @@ class CourseAddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        courseListViewModel = ViewModelProvider(requireActivity())
-            .get(CourseListViewModel::class.java)
+        courseViewModel = ViewModelProvider(requireActivity())
+            .get(CourseViewModel::class.java)
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_course_add, container, false)
@@ -52,7 +52,7 @@ class CourseAddFragment : Fragment() {
 
         buttonAddCourse.setOnClickListener{
             if (!editTextNewCourseName.text.toString().isNullOrBlank()){
-                courseListViewModel.addCourse(editTextNewCourseName.text.toString())
+                courseViewModel.addCourse(editTextNewCourseName.text.toString())
             }
             navigateToCourseList(view)
         }

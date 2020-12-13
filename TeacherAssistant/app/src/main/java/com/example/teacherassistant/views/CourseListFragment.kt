@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.adapters.CourseListAdapter
-import com.example.teacherassistant.viewmodels.CourseListViewModel
+import com.example.teacherassistant.viewmodels.CourseViewModel
 import kotlinx.android.synthetic.main.fragment_course_list.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_course_list.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 // --- mine code ---
-private lateinit var courseListViewModel: CourseListViewModel
+private lateinit var courseViewModel: CourseViewModel
 // --- --- --- --- ---
 
 
@@ -52,12 +52,12 @@ class CourseListFragment : Fragment() {
     ): View? {
         // --- mine code ---
 
-        courseListViewModel = ViewModelProvider(requireActivity())
-            .get(CourseListViewModel::class.java)
+        courseViewModel = ViewModelProvider(requireActivity())
+            .get(CourseViewModel::class.java)
         viewManager = LinearLayoutManager(context)
-        courseListAdapter = CourseListAdapter(courseListViewModel.courses)
+        courseListAdapter = CourseListAdapter(courseViewModel.courses)
 
-        courseListViewModel.courses.observe(viewLifecycleOwner,{
+        courseViewModel.courses.observe(viewLifecycleOwner,{
             courseListAdapter.notifyDataSetChanged()
         })
 

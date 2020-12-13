@@ -1,4 +1,4 @@
-package com.example.teacherassistant.models
+package com.example.teacherassistant.models.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
