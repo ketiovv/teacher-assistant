@@ -36,21 +36,19 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
 
     init {
         allGrades = gradeRepository.readAll
-        grades = Transformations.switchMap(combinedValues) { pair ->
-            val s_id = pair.first
-            val c_id = pair.second
-            return@switchMap gradeRepository.readAllGradesForStudentInCourse(s_id, c_id)
+        grades = Transformations.switchMap(combinedValues) {
+            pair -> val studentId = pair.first
+            val courseId = pair.second
+            return@switchMap gradeRepository.readAllGradesForStudentInCourse(studentId, courseId)
         }
+
+
+
         todaysGrades = Transformations.map(allGrades) {
                 grade -> grade.filter { x ->
             x.date.substring(0, 10) == LocalDateTime.now().toString().substring(0, 10)
             }
         }
-    }
-
-    fun setStudentAndCourseId(student_id: Int, course_id: Int){
-        this.studentId.value = student_id
-        this.courseId.value = course_id
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -65,6 +63,11 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             gradeRepository.delete(grade)
         }
+    }
+
+    fun setStudentAndCourseId(student_id: Int, course_id: Int){
+        this.studentId.value = student_id
+        this.courseId.value = course_id
     }
 
 }

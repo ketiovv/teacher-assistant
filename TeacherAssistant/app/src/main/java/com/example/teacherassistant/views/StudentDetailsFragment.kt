@@ -40,7 +40,7 @@ private lateinit var courseViewModel:CourseViewModel
 
         viewManager = LinearLayoutManager(context)
 
-        studentCoursesAdapter = StudentCoursesAdapter(courseViewModel.courses)
+        studentCoursesAdapter = StudentCoursesAdapter(courseViewModel.courses,student)
 
         courseViewModel.setStudentId(student.id)
         courseViewModel.courses.observe(viewLifecycleOwner,{
