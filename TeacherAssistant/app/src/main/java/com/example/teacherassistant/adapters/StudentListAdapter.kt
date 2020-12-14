@@ -10,9 +10,13 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
+import com.example.teacherassistant.models.entities.Course
 import com.example.teacherassistant.models.entities.Student
 
-class StudentListAdapter(var students:LiveData<List<Student>>) :RecyclerView.Adapter<StudentListAdapter.StudentHolder>() {
+class StudentListAdapter(
+    var students:LiveData<List<Student>>,
+    var deleteCallback: ((s: Student) -> Unit))
+    :RecyclerView.Adapter<StudentListAdapter.StudentHolder>() {
     inner class StudentHolder(view: View):RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentHolder {
@@ -36,6 +40,12 @@ class StudentListAdapter(var students:LiveData<List<Student>>) :RecyclerView.Ada
                 bundleOf("student" to students.value?.get(position))
             )
         }
+        var buttonDeleteStudent= holder.itemView.findViewById<Button>(R.id.buttonDeleteStudent)
+        buttonDeleteStudent.setOnClickListener{
+            var student =  students.value?.get(position)
+            if (student != null) deleteCallback(student)
+        }
+
     }
 
     override fun getItemCount(): Int = students.value?.size?:0

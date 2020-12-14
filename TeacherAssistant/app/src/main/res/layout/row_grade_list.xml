@@ -5,36 +5,22 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-
     <TextView
-        android:id="@+id/textViewStudentName"
+        android:id="@+id/textViewGradeValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="name" />
+        android:text="TextView" />
+
     <TextView
-        android:id="@+id/textViewStudentLastName"
+        android:id="@+id/textViewGradeNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="name" />
+        android:text="TextView" />
 
     <Button
-        android:id="@+id/buttonStudentCourses"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="Open" />
-
-    <Button
-        android:id="@+id/buttonEditStudent"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="e" />
-
-    <Button
-        android:id="@+id/buttonDeleteStudent"
+        android:id="@+id/buttonDeleteGrade"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_weight="0"

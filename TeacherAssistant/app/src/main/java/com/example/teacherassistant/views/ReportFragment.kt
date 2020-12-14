@@ -1,11 +1,22 @@
 package com.example.teacherassistant.views
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
+import com.example.teacherassistant.adapters.ReportAdapter
+import com.example.teacherassistant.viewmodels.GradeViewModel
+import kotlinx.android.synthetic.main.fragment_report.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +33,10 @@ class ReportFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var gradeViewModel: GradeViewModel
+    private lateinit var reportAdapter:ReportAdapter
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +49,28 @@ class ReportFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        gradeViewModel = ViewModelProvider(requireActivity()).get(GradeViewModel::class.java)
+        viewManager = LinearLayoutManager(context)
+        reportAdapter = ReportAdapter(gradeViewModel.todaysGrades)
+
+        gradeViewModel.todaysGrades.observe(viewLifecycleOwner,{
+            reportAdapter.notifyDataSetChanged()
+        })
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_report, container, false)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerViewReport.apply{
+            layoutManager = viewManager
+            adapter = reportAdapter
+        }
+
+        val format = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        textViewDateValue.text = LocalDateTime.now().format(format)
     }
 
     companion object {

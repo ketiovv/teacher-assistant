@@ -14,8 +14,9 @@ class StudentViewModel(application: Application):AndroidViewModel(application) {
 
     private val studentRepository:StudentRepository =
         StudentRepository(AppDatabase.getDatabase(application).studentDao())
-    private val studentCourseRepository:StudentCourseRepository =
-        StudentCourseRepository(AppDatabase.getDatabase(application).studentCourseDao())
+
+    val studentsNotInCourse:LiveData<List<Student>>
+
 
     init{
         students = Transformations.switchMap(courseId) { id ->
@@ -24,6 +25,15 @@ class StudentViewModel(application: Application):AndroidViewModel(application) {
             }
             else {
                 return@switchMap studentRepository.getStudentsInCourse(id)
+            }
+        }
+        studentsNotInCourse = Transformations.switchMap(courseId){
+                id ->
+            if(id == 0) {
+                return@switchMap studentRepository.getAll
+            }
+            else {
+                return@switchMap studentRepository.getStudentsNotInCourse(id)
             }
         }
     }
@@ -35,6 +45,12 @@ class StudentViewModel(application: Application):AndroidViewModel(application) {
     fun addStudent(firstName:String, lastName:String){
         viewModelScope.launch {
             studentRepository.add(Student(0,firstName,lastName))
+        }
+    }
+
+    fun deleteStudent(student: Student) {
+        viewModelScope.launch {
+            studentRepository.delete(student)
         }
     }
 

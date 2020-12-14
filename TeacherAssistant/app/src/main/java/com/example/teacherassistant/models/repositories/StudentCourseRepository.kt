@@ -5,8 +5,9 @@ import com.example.teacherassistant.models.dao.StudentCourseDao
 import com.example.teacherassistant.models.entities.Course
 import com.example.teacherassistant.models.entities.StudentCourse
 
-class StudentCourseRepository(val studentCourseDao: StudentCourseDao) {
+class StudentCourseRepository(private val studentCourseDao: StudentCourseDao) {
     val readAll: LiveData<List<StudentCourse>> = studentCourseDao.getAll()
-
     suspend fun add(studentCourse:StudentCourse) = studentCourseDao.addStudentToCourse(studentCourse)
+    suspend fun deleteStudentFromCourse(course_id: Int, student_id: Int) = studentCourseDao.deleteStudentFromCourse(course_id, student_id)
+    suspend fun getId(courseId:Int, studentId:Int):Int = studentCourseDao.getIdByStudentAndCourse(studentId,courseId).id
 }

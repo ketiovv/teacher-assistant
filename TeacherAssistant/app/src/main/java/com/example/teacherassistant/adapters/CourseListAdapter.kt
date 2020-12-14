@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.models.entities.Course
 
-class CourseListAdapter(var courses: LiveData<List<Course>>):RecyclerView.Adapter<CourseListAdapter.CourseHolder>() {
+class CourseListAdapter(
+    var courses: LiveData<List<Course>>,
+    var deleteCallback: ((c: Course) -> Unit))
+    :RecyclerView.Adapter<CourseListAdapter.CourseHolder>() {
     inner class CourseHolder(view: View):RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseHolder {
@@ -31,6 +34,13 @@ class CourseListAdapter(var courses: LiveData<List<Course>>):RecyclerView.Adapte
                 R.id.action_courseListFragment_to_courseDetailsFragment,
                 bundleOf("course" to courses.value?.get(position)))
         }
+
+        var buttonDeleteCourse = holder.itemView.findViewById<Button>(R.id.buttonDeleteCourse)
+        buttonDeleteCourse.setOnClickListener {
+            var course =  courses.value?.get(position)
+            if (course != null) deleteCallback(course)
+        }
+
     }
 
     override fun getItemCount(): Int = courses.value?.size?:0

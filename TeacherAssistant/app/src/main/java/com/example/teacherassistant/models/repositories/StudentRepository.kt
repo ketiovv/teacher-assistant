@@ -8,6 +8,7 @@ class StudentRepository(private val studentDao: StudentDao) {
 
     val getAll:LiveData<List<Student>> = studentDao.getAll()
     fun getStudentsInCourse(courseId:Int) = studentDao.getByCourseId(courseId)
+    fun getStudentsNotInCourse(courseId: Int) = studentDao.getNotInCourseById(courseId)
     suspend fun add(student: Student) = studentDao.insert(student)
     suspend fun delete(student: Student)= studentDao.delete(student)
 }

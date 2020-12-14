@@ -71,10 +71,41 @@
         android:id="@+id/courseDetailsFragment"
         android:name="com.example.teacherassistant.views.CourseDetailsFragment"
         android:label="CourseDetailsFragment"
-        tools:layout="@layout/fragment_course_details"/>
+        tools:layout="@layout/fragment_course_details">
+        <action
+            android:id="@+id/action_courseDetailsFragment_to_gradesStudentInCourseFragment"
+            app:destination="@id/gradesStudentInCourseFragment" />
+        <action
+            android:id="@+id/action_courseDetailsFragment_to_courseStudentAdd"
+            app:destination="@id/courseStudentAdd" />
+    </fragment>
     <fragment
         android:id="@+id/studentDetailsFragment"
         android:name="com.example.teacherassistant.views.StudentDetailsFragment"
         android:label="StudentDetailsFragment"
-        tools:layout="@layout/fragment_student_details"/>
+        tools:layout="@layout/fragment_student_details">
+        <action
+            android:id="@+id/action_studentDetailsFragment_to_gradesStudentInCourseFragment"
+            app:destination="@id/gradesStudentInCourseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gradesStudentInCourseFragment"
+        android:name="com.example.teacherassistant.views.GradesStudentInCourseFragment"
+        android:label="GradesStudentInCourseFragment" >
+        <action
+            android:id="@+id/action_gradesStudentInCourseFragment_to_gradeAddFragment"
+            app:destination="@id/gradeAddFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gradeAddFragment"
+        android:name="com.example.teacherassistant.views.GradeAddFragment"
+        android:label="GradeAddFragment" >
+        <action
+            android:id="@+id/action_gradeAddFragment_to_gradesStudentInCourseFragment"
+            app:destination="@id/gradesStudentInCourseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseStudentAdd"
+        android:name="com.example.teacherassistant.views.CourseStudentAdd"
+        android:label="CourseStudentAdd" />
 </navigation>

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.adapters.CourseListAdapter
 import com.example.teacherassistant.viewmodels.CourseViewModel
+import com.example.teacherassistant.viewmodels.StudentCourseViewModel
 import kotlinx.android.synthetic.main.fragment_course_list.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -54,8 +55,11 @@ class CourseListFragment : Fragment() {
 
         courseViewModel = ViewModelProvider(requireActivity())
             .get(CourseViewModel::class.java)
+
         viewManager = LinearLayoutManager(context)
-        courseListAdapter = CourseListAdapter(courseViewModel.courses)
+        courseListAdapter = CourseListAdapter(courseViewModel.courses) { x ->
+            courseViewModel.deleteCourse(x)
+        }
         courseViewModel.setStudentId(0)
         courseViewModel.courses.observe(viewLifecycleOwner,{
             courseListAdapter.notifyDataSetChanged()

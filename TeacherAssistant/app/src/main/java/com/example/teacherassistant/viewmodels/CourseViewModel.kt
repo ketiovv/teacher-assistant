@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.teacherassistant.models.AppDatabase
 import com.example.teacherassistant.models.entities.Course
+import com.example.teacherassistant.models.entities.Grade
 import com.example.teacherassistant.models.entities.StudentCourse
 import com.example.teacherassistant.models.repositories.CourseRepository
+import com.example.teacherassistant.models.repositories.GradeRepository
 import com.example.teacherassistant.models.repositories.StudentCourseRepository
 import kotlinx.coroutines.launch
 
@@ -26,7 +28,6 @@ class CourseViewModel(application: Application): AndroidViewModel(application) {
                 return@switchMap courseRepository.readAllCoursesForStudent(id)
             }
         }
-
     }
 
     fun setStudentId(id:Int){
@@ -36,6 +37,12 @@ class CourseViewModel(application: Application): AndroidViewModel(application) {
     fun addCourse(name: String){
         viewModelScope.launch {
             courseRepository.add(Course(0,name))
+        }
+    }
+
+    fun deleteCourse(course: Course) {
+        viewModelScope.launch {
+            courseRepository.delete(course)
         }
     }
 }
