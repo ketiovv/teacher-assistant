@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.models.entities.Grade
 
-class ReportAdapter(var grades: LiveData<List<Grade>>) : RecyclerView.Adapter<ReportAdapter.GradeHolder>() {
+class ReportAdapter(var grades: LiveData<List<Grade>>,
+                    var getStudentLastNameCallback:((i:Int) -> String))
+    : RecyclerView.Adapter<ReportAdapter.GradeHolder>() {
     inner class GradeHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GradeHolder {
@@ -25,6 +27,11 @@ class ReportAdapter(var grades: LiveData<List<Grade>>) : RecyclerView.Adapter<Re
         grade.text = grades.value?.get(position)?.grade.toString()
         val note = holder.itemView.findViewById<TextView>(R.id.textViewGradeNoteR)
         note.text = grades.value?.get(position)?.note.toString()
+        val textViewGradeOwner = holder.itemView.findViewById<TextView>(R.id.textViewGradeOwner)
+        var studentCrsId = grades.value?.get(position)?.studentCourseId
+        if (studentCrsId != null){
+            textViewGradeOwner.text = getStudentLastNameCallback(studentCrsId)
+        }
 
     }
 

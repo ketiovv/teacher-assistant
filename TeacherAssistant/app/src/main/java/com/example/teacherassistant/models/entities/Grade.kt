@@ -6,7 +6,14 @@ import androidx.room.PrimaryKey
 import java.util.*
 
 @Entity(
-    tableName = "grade_table"
+    tableName = "grade_table",
+        foreignKeys = [
+            androidx.room.ForeignKey(
+                entity = StudentCourse::class,
+                parentColumns = ["id"],
+                childColumns = ["studentCourseId"],
+                onDelete = ForeignKey.CASCADE
+    )]
 )
 data class Grade(@PrimaryKey(autoGenerate = true)
                  val id:Int,

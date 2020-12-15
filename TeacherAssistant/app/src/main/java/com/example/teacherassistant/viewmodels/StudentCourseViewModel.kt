@@ -29,4 +29,11 @@ class StudentCourseViewModel(application: Application):AndroidViewModel(applicat
             courseStudentsRepository.deleteStudentFromCourse(course.id,student.id)
         }
     }
+
+    fun getStudentId(studentCourseId:Int) : Int?{
+        var test =courseStudentsRepository.readAll.value?.find { x -> x.id == studentCourseId }
+        var test2 = test?.student_id
+        return test2
+    }
+
 }

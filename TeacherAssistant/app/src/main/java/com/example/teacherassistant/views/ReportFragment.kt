@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.adapters.ReportAdapter
+import com.example.teacherassistant.models.entities.StudentCourse
 import com.example.teacherassistant.viewmodels.GradeViewModel
+import com.example.teacherassistant.viewmodels.StudentCourseViewModel
 import kotlinx.android.synthetic.main.fragment_report.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -33,7 +35,9 @@ class ReportFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var studentCourseViewModel: StudentCourseViewModel
     private lateinit var gradeViewModel: GradeViewModel
+
     private lateinit var reportAdapter:ReportAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
@@ -49,9 +53,12 @@ class ReportFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        studentCourseViewModel = ViewModelProvider(requireActivity()).get(StudentCourseViewModel::class.java)
         gradeViewModel = ViewModelProvider(requireActivity()).get(GradeViewModel::class.java)
         viewManager = LinearLayoutManager(context)
-        reportAdapter = ReportAdapter(gradeViewModel.todaysGrades)
+        reportAdapter = ReportAdapter(gradeViewModel.todaysGrades) { x ->
+            studentCourseViewModel.getStudentId(x).toString()
+        }
 
         gradeViewModel.todaysGrades.observe(viewLifecycleOwner,{
             reportAdapter.notifyDataSetChanged()
