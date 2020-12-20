@@ -56,10 +56,7 @@ class CourseAddFragment : Fragment() {
             }
             navigateToCourseList(view)
         }
-        buttonCancelCourse.setOnClickListener{
-            editTextNewCourseName.text.clear()
-            navigateToCourseList(view)
-        }
+
 
     }
     private fun navigateToCourseList(view : View){

@@ -59,11 +59,6 @@ class StudentAddFragment : Fragment() {
             }
             navigateToStudentList(view)
         }
-        buttonCancelStudent.setOnClickListener{
-            editTextNewStudentFirstName.text.clear()
-            editTextNewStudentLastName.text.clear()
-            navigateToStudentList(view)
-        }
 
     }
     private fun navigateToStudentList(view : View){

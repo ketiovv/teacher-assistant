@@ -18,6 +18,6 @@ import java.util.*
 data class Grade(@PrimaryKey(autoGenerate = true)
                  val id:Int,
                  val studentCourseId:Int,
-                 val grade: String,
+                 val grade: Double,
                  val note: String,
                  val date: String)

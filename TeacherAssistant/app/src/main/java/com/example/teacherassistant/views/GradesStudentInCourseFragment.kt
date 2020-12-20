@@ -1,10 +1,12 @@
 package com.example.teacherassistant.views
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -41,6 +43,7 @@ private lateinit var gradeViewModel:GradeViewModel
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,13 +60,22 @@ private lateinit var gradeViewModel:GradeViewModel
             gradesAdapter.notifyDataSetChanged()
         })
 
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_grades_student_in_course, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val grades = gradeViewModel.grades.value
+        if (grades != null) {
+            var sum = 0.0
+            grades.forEach { grade ->
+                sum += grade.grade
+            }
+            textViewAverageValue.text = (sum/grades.size).toString()
+        }
+
 
         textViewGradesCourseName.text = course.name
         textViewGradesStudentLastName.text = student.lastName

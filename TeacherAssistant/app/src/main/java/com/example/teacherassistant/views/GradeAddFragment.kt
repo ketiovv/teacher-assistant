@@ -48,8 +48,11 @@ class GradeAddFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         btnAddGrade.setOnClickListener{
-            gradeViewModel.addGrade(student.id,course.id, editTextGrade.text.toString(), editTextGradeNote.text.toString())
+            var gradeInDouble = editTextGrade.text.toString().toDoubleOrNull()
+            if (gradeInDouble != null)
+                gradeViewModel.addGrade(student.id,course.id,  gradeInDouble.toDouble(), editTextGradeNote.text.toString())
         }
     }
     companion object {

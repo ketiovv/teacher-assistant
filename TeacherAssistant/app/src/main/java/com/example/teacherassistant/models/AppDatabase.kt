@@ -18,7 +18,7 @@ import com.example.teacherassistant.models.entities.StudentCourse
                 Course::class,
                 StudentCourse::class,
                 Grade::class],
-    version = 2,
+    version = 3,
     exportSchema = false)
 abstract class AppDatabase:RoomDatabase() {
 

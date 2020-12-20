@@ -52,7 +52,7 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun addGrade(studentId:Int, courseId:Int, grade: String, note: String){
+    fun addGrade(studentId:Int, courseId:Int, grade: Double, note: String){
         viewModelScope.launch {
             var dateNow = LocalDateTime.now();
             gradeRepository.add(Grade(0,studentCourseRepository.getId(studentId,courseId), grade, note, dateNow.toString()))
