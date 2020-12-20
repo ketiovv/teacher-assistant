@@ -44,17 +44,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNewCourseLastName" />
 
-    <Button
-        android:id="@+id/buttonCancelCourse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddCourse"
-        app:layout_constraintVertical_bias="0.138" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
