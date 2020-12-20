@@ -1,10 +1,7 @@
 package com.example.teacherassistant.models.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.teacherassistant.models.entities.Student
 
 @Dao
@@ -23,5 +20,8 @@ interface StudentDao {
 
     @Delete
     suspend fun delete(student: Student)
+
+    @Update
+    suspend fun update(student: Student)
 
 }

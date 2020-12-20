@@ -9,4 +9,5 @@ class CourseRepository(private val courseDao: CourseDao) {
     fun readAllCoursesForStudent(studentId:Int):LiveData<List<Course>> = courseDao.getAllCoursesForStudent(studentId)
     suspend fun add(course: Course) = courseDao.insert(course)
     suspend fun delete(course: Course) = courseDao.delete(course)
+    suspend fun update(course: Course) = courseDao.update(course)
 }

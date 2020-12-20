@@ -25,6 +25,7 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
     val allGrades:LiveData<List<Grade>>
     var todaysGrades : LiveData<List<Grade>>
 
+
     val combinedValues = MediatorLiveData<Pair<Int, Int>>().apply {
         addSource(studentId) {
             value = Pair(it, courseId.value!!)
@@ -36,19 +37,22 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
 
     init {
         allGrades = gradeRepository.readAll
-        grades = Transformations.switchMap(combinedValues) {
-            pair -> val studentId = pair.first
+
+        grades = Transformations.switchMap(combinedValues) { pair ->
+            val studentId = pair.first
             val courseId = pair.second
             return@switchMap gradeRepository.readAllGradesForStudentInCourse(studentId, courseId)
         }
 
 
-
+        // za kazdym razem jak zmienia sie allGrades - todaysGrades tez sie zupdateuja
         todaysGrades = Transformations.map(allGrades) {
                 grade -> grade.filter { x ->
             x.date.substring(0, 10) == LocalDateTime.now().toString().substring(0, 10)
             }
         }
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -69,5 +73,4 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
         this.studentId.value = student_id
         this.courseId.value = course_id
     }
-
 }

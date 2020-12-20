@@ -45,4 +45,10 @@ class CourseViewModel(application: Application): AndroidViewModel(application) {
             courseRepository.delete(course)
         }
     }
+
+    fun updateCourse(course: Course, newName: String){
+        viewModelScope.launch {
+            courseRepository.update(Course(course.id, newName))
+        }
+    }
 }

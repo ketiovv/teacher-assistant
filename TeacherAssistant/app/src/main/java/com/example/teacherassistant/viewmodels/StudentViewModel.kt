@@ -19,6 +19,7 @@ class StudentViewModel(application: Application):AndroidViewModel(application) {
 
 
     init{
+        // przy zmianie parametru - w tym przypadku courseId funkcja zostanie znowu wywołana
         students = Transformations.switchMap(courseId) { id ->
             if(id == 0) {
                 return@switchMap studentRepository.getAll
@@ -51,6 +52,12 @@ class StudentViewModel(application: Application):AndroidViewModel(application) {
     fun deleteStudent(student: Student) {
         viewModelScope.launch {
             studentRepository.delete(student)
+        }
+    }
+
+    fun updateStudent(student: Student, newName: String, newSurname: String){
+        viewModelScope.launch {
+            studentRepository.update(Student(student.id, newName, newSurname))
         }
     }
 

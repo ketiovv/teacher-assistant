@@ -57,14 +57,9 @@ class StudentAddFragment : Fragment() {
                     editTextNewStudentFirstName.text.toString(),
                     editTextNewStudentLastName.text.toString())
             }
-            navigateToStudentList(view)
         }
 
     }
-    private fun navigateToStudentList(view : View){
-        view.findNavController().navigate(R.id.action_studentAddFragment_to_studentListFragment)
-    }
-
     companion object {
         /**
          * Use this factory method to create a new instance of

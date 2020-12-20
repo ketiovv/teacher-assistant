@@ -17,4 +17,7 @@ interface CourseDao {
 
     @Delete
     suspend fun delete(course: Course)
+
+    @Update
+    suspend fun update(course: Course)
 }

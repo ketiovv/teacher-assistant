@@ -40,6 +40,16 @@ class StudentListAdapter(
                 bundleOf("student" to students.value?.get(position))
             )
         }
+
+        var buttonEditStudent = holder.itemView.findViewById<Button>(R.id.buttonEditStudent)
+        buttonEditStudent.setOnClickListener { view ->
+            view.findNavController().navigate(
+                R.id.action_studentListFragment_to_studentEditFragment,
+                bundleOf("student" to students.value?.get(position))
+            )
+        }
+
+
         var buttonDeleteStudent= holder.itemView.findViewById<Button>(R.id.buttonDeleteStudent)
         buttonDeleteStudent.setOnClickListener{
             var student =  students.value?.get(position)

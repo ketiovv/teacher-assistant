@@ -35,6 +35,14 @@ class CourseListAdapter(
                 bundleOf("course" to courses.value?.get(position)))
         }
 
+        var buttonEditCourse = holder.itemView.findViewById<Button>(R.id.buttonEditCourse)
+        buttonEditCourse.setOnClickListener { view ->
+            view.findNavController().navigate(
+                R.id.action_courseListFragment_to_courseEditFragment,
+                bundleOf("course" to courses.value?.get(position))
+            )
+        }
+
         var buttonDeleteCourse = holder.itemView.findViewById<Button>(R.id.buttonDeleteCourse)
         buttonDeleteCourse.setOnClickListener {
             var course =  courses.value?.get(position)

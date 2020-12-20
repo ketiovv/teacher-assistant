@@ -54,13 +54,7 @@ class CourseAddFragment : Fragment() {
             if (!editTextNewCourseName.text.toString().isNullOrBlank()){
                 courseViewModel.addCourse(editTextNewCourseName.text.toString())
             }
-            navigateToCourseList(view)
         }
-
-
-    }
-    private fun navigateToCourseList(view : View){
-        view.findNavController().navigate(R.id.action_courseAddFragment_to_courseListFragment)
     }
 
 
