@@ -53,20 +53,12 @@
         android:id="@+id/courseAddFragment"
         android:name="com.example.teacherassistant.views.CourseAddFragment"
         android:label="CourseAddFragment"
-        tools:layout="@layout/fragment_course_add">
-        <action
-            android:id="@+id/action_courseAddFragment_to_courseListFragment"
-            app:destination="@id/courseListFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_course_add"/>
     <fragment
         android:id="@+id/studentAddFragment"
         android:name="com.example.teacherassistant.views.StudentAddFragment"
         android:label="StudentAddFragment"
-        tools:layout="@layout/fragment_student_add">
-        <action
-            android:id="@+id/action_studentAddFragment_to_studentListFragment"
-            app:destination="@id/studentListFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_student_add"/>
     <fragment
         android:id="@+id/courseDetailsFragment"
         android:name="com.example.teacherassistant.views.CourseDetailsFragment"
@@ -91,7 +83,8 @@
     <fragment
         android:id="@+id/gradesStudentInCourseFragment"
         android:name="com.example.teacherassistant.views.GradesStudentInCourseFragment"
-        android:label="GradesStudentInCourseFragment" >
+        android:label="GradesStudentInCourseFragment"
+        tools:layout="@layout/fragment_grades_student_in_course">
         <action
             android:id="@+id/action_gradesStudentInCourseFragment_to_gradeAddFragment"
             app:destination="@id/gradeAddFragment" />
@@ -99,13 +92,11 @@
     <fragment
         android:id="@+id/gradeAddFragment"
         android:name="com.example.teacherassistant.views.GradeAddFragment"
-        android:label="GradeAddFragment" >
-        <action
-            android:id="@+id/action_gradeAddFragment_to_gradesStudentInCourseFragment"
-            app:destination="@id/gradesStudentInCourseFragment" />
-    </fragment>
+        android:label="GradeAddFragment"
+        tools:layout="@layout/fragment_grade_add"/>
     <fragment
         android:id="@+id/courseStudentAdd"
         android:name="com.example.teacherassistant.views.CourseStudentAdd"
-        android:label="CourseStudentAdd" />
+        android:label="CourseStudentAdd"
+        tools:layout="@layout/fragment_course_student_add"/>
 </navigation>
