@@ -21,4 +21,7 @@ interface StudentCourseDao {
 
     @Query("SELECT * FROM student_course_table WHERE course_id ==:courseId AND student_id == :studentId LIMIT 1")
     suspend fun getIdByStudentAndCourse(courseId:Int,studentId:Int):StudentCourse
+
+    @Query("SELECT student_id FROM student_course_table WHERE id == :studentCourseId")
+    suspend fun getStudentId(studentCourseId:Int): Int
 }

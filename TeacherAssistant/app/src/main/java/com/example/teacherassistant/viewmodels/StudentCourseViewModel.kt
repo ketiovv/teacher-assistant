@@ -2,6 +2,7 @@ package com.example.teacherassistant.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.teacherassistant.models.AppDatabase
 import com.example.teacherassistant.models.entities.Course
@@ -9,6 +10,7 @@ import com.example.teacherassistant.models.entities.Student
 import com.example.teacherassistant.models.entities.StudentCourse
 import com.example.teacherassistant.models.repositories.StudentCourseRepository
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class StudentCourseViewModel(application: Application):AndroidViewModel(application) {
 
@@ -16,6 +18,8 @@ class StudentCourseViewModel(application: Application):AndroidViewModel(applicat
         StudentCourseRepository(AppDatabase.getDatabase(application).studentCourseDao())
 
     val courseStudents = courseStudentsRepository.readAll
+
+    var studentId: Int = 0
 
 
     fun addStudentToCourse(student_id:Int, course_id:Int){
@@ -30,10 +34,10 @@ class StudentCourseViewModel(application: Application):AndroidViewModel(applicat
         }
     }
 
-    fun getStudentId(studentCourseId:Int) : Int?{
-        var test =courseStudentsRepository.readAll.value?.find { x -> x.id == studentCourseId }
-        var test2 = test?.student_id
-        return test2
+    fun getStudentId(studentCourseId:Int): Int {
+        viewModelScope.launch {
+            studentId = courseStudentsRepository.getStudentId(studentCourseId)
+        }
+        return studentId
     }
-
 }

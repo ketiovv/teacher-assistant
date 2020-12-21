@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.adapters.ReportAdapter
-import com.example.teacherassistant.models.entities.StudentCourse
 import com.example.teacherassistant.viewmodels.GradeViewModel
 import com.example.teacherassistant.viewmodels.StudentCourseViewModel
+import com.example.teacherassistant.viewmodels.StudentViewModel
 import kotlinx.android.synthetic.main.fragment_report.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -37,6 +36,7 @@ class ReportFragment : Fragment() {
 
     private lateinit var studentCourseViewModel: StudentCourseViewModel
     private lateinit var gradeViewModel: GradeViewModel
+    private lateinit var studentViewModel: StudentViewModel
 
     private lateinit var reportAdapter:ReportAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
@@ -55,14 +55,16 @@ class ReportFragment : Fragment() {
     ): View? {
         studentCourseViewModel = ViewModelProvider(requireActivity()).get(StudentCourseViewModel::class.java)
         gradeViewModel = ViewModelProvider(requireActivity()).get(GradeViewModel::class.java)
+        studentViewModel = ViewModelProvider(requireActivity()).get(StudentViewModel::class.java)
+
         viewManager = LinearLayoutManager(context)
-        reportAdapter = ReportAdapter(gradeViewModel.todaysGrades) { x ->
-            studentCourseViewModel.getStudentId(x).toString()
-        }
+        reportAdapter = ReportAdapter(gradeViewModel.todaysGrades)
 
         gradeViewModel.todaysGrades.observe(viewLifecycleOwner,{
             reportAdapter.notifyDataSetChanged()
         })
+        studentViewModel.students.observe(viewLifecycleOwner){}
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_report, container, false)
     }

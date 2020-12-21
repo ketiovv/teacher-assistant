@@ -64,11 +64,9 @@ private lateinit var gradeViewModel:GradeViewModel
         return inflater.inflate(R.layout.fragment_grades_student_in_course, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textViewAverageValue.text =
         textViewGradesCourseName.text = course.name
         textViewGradesStudentLastName.text = student.lastName
         buttonAddGrade.setOnClickListener{ view ->

@@ -60,5 +60,4 @@ class StudentViewModel(application: Application):AndroidViewModel(application) {
             studentRepository.update(Student(student.id, newName, newSurname))
         }
     }
-
 }
