@@ -33,7 +33,7 @@ class ReportAdapter(
         student.text = getStudentCallback(grades.value?.get(position)?.studentCourseId!!)
 
         val course = holder.itemView.findViewById<TextView>(R.id.textViewGradeCourse)
-        course.text = getCourseCallback(grades.value?.get(position)?.studentCourseId!!).toString()
+        course.text = getCourseCallback(grades.value?.get(position)?.studentCourseId!!)
 
     }
 

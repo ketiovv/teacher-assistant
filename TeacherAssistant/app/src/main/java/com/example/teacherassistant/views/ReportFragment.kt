@@ -87,9 +87,6 @@ class ReportFragment : Fragment() {
             layoutManager = viewManager
             adapter = reportAdapter
         }
-
-        val format = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-        textViewDateValue.text = LocalDateTime.now().format(format)
     }
 
     companion object {

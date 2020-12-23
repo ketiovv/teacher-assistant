@@ -1,8 +1,7 @@
 package com.example.teacherassistant.models.entities
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.example.teacherassistant.models.converters.DateConverter
 import java.util.*
 
 @Entity(
@@ -15,9 +14,10 @@ import java.util.*
                 onDelete = ForeignKey.CASCADE
     )]
 )
+@TypeConverters(DateConverter::class)
 data class Grade(@PrimaryKey(autoGenerate = true)
                  val id:Int,
                  val studentCourseId:Int,
                  val grade: Double,
                  val note: String,
-                 val date: String)
+                 val date: Date)

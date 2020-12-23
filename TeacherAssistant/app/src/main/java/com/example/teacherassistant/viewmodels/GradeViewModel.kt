@@ -2,6 +2,7 @@ package com.example.teacherassistant.viewmodels
 
 import android.app.Application
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.example.teacherassistant.models.AppDatabase
@@ -10,6 +11,7 @@ import com.example.teacherassistant.models.repositories.GradeRepository
 import com.example.teacherassistant.models.repositories.StudentCourseRepository
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
+import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 class GradeViewModel(application: Application): AndroidViewModel(application) {
@@ -23,7 +25,7 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
     val allGrades:LiveData<List<Grade>>
     var todaysGrades : LiveData<List<Grade>>
 
-    var average: Double = 0.0
+    var reportDate: Calendar
 
     val pairValues = MediatorLiveData<Pair<Int, Int>>().apply {
         addSource(studentId) {
@@ -35,6 +37,12 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
     }
 
     init {
+        reportDate = Calendar.getInstance().also { c ->
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0)
+        }
         allGrades = gradeRepository.readAll
         grades = Transformations.switchMap(pairValues) { pair ->
             val studentId = pair.first
@@ -45,10 +53,8 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
 
 
         // za kazdym razem jak zmienia sie allGrades - todaysGrades tez sie zupdateuja
-        todaysGrades = Transformations.map(allGrades) {
-                grade -> grade.filter { x ->
-                    x.date.substring(0, 10) == LocalDateTime.now().toString().substring(0, 10)
-            }
+        todaysGrades = Transformations.map(allGrades) { grade ->
+            grade.filterNot { x -> x.date.before(reportDate.time )}
         }
 
     }
@@ -56,8 +62,7 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
     @RequiresApi(Build.VERSION_CODES.O)
     fun addGrade(studentId:Int, courseId:Int, grade: Double, note: String){
         viewModelScope.launch {
-            var dateNow = LocalDateTime.now();
-            gradeRepository.add(Grade(0,studentCourseRepository.getId(studentId,courseId), grade, note, dateNow.toString()))
+            gradeRepository.add(Grade(0,studentCourseRepository.getId(studentId,courseId), grade, note, Calendar.getInstance().time))
         }
     }
 
