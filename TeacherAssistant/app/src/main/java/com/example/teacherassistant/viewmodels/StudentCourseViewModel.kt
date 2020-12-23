@@ -2,6 +2,7 @@ package com.example.teacherassistant.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.teacherassistant.models.AppDatabase
@@ -17,9 +18,12 @@ class StudentCourseViewModel(application: Application):AndroidViewModel(applicat
     private val courseStudentsRepository =
         StudentCourseRepository(AppDatabase.getDatabase(application).studentCourseDao())
 
-    val courseStudents = courseStudentsRepository.readAll
+    val courseStudents :LiveData<List<StudentCourse>>
 
-    var studentId: Int = 0
+    init {
+        courseStudents = courseStudentsRepository.readAll
+    }
+    //    var studentId: Int = 0
 
 
     fun addStudentToCourse(student_id:Int, course_id:Int){
@@ -35,9 +39,11 @@ class StudentCourseViewModel(application: Application):AndroidViewModel(applicat
     }
 
     fun getStudentId(studentCourseId:Int): Int {
-        viewModelScope.launch {
-            studentId = courseStudentsRepository.getStudentId(studentCourseId)
-        }
-        return studentId
+        val studentId = courseStudents.value?.find { x -> x.id == studentCourseId }?.student_id
+        return studentId?:99
+    }
+    fun getCourseId(studentCourseId:Int): Int {
+        val courseId = courseStudents.value?.find { x -> x.id == studentCourseId }?.course_id
+        return courseId?:99
     }
 }

@@ -11,4 +11,6 @@ class StudentCourseRepository(private val studentCourseDao: StudentCourseDao) {
     suspend fun deleteStudentFromCourse(course_id: Int, student_id: Int) = studentCourseDao.deleteStudentFromCourse(course_id, student_id)
     suspend fun getId(courseId:Int, studentId:Int): Int = studentCourseDao.getIdByStudentAndCourse(studentId,courseId).id
     suspend fun getStudentId(studentCourseId: Int): Int = studentCourseDao.getStudentId(studentCourseId)
+    suspend fun getCourseId(studentCourseId: Int): Int = studentCourseDao.getCourseId(studentCourseId)
+
 }

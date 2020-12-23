@@ -47,7 +47,7 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
         // za kazdym razem jak zmienia sie allGrades - todaysGrades tez sie zupdateuja
         todaysGrades = Transformations.map(allGrades) {
                 grade -> grade.filter { x ->
-            x.date.substring(0, 10) == LocalDateTime.now().toString().substring(0, 10)
+                    x.date.substring(0, 10) == LocalDateTime.now().toString().substring(0, 10)
             }
         }
 

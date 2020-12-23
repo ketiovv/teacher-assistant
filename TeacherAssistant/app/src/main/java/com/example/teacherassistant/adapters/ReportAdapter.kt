@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.teacherassistant.R
 import com.example.teacherassistant.models.entities.Grade
 
-class ReportAdapter(var grades: LiveData<List<Grade>>)
+class ReportAdapter(
+        var grades: LiveData<List<Grade>>,
+        var getStudentCallback:((scId:Int) -> String),
+        var getCourseCallback:((scId:Int) -> String))
     : RecyclerView.Adapter<ReportAdapter.GradeHolder>() {
     inner class GradeHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -25,6 +28,13 @@ class ReportAdapter(var grades: LiveData<List<Grade>>)
         grade.text = grades.value?.get(position)?.grade.toString()
         val note = holder.itemView.findViewById<TextView>(R.id.textViewGradeNoteR)
         note.text = grades.value?.get(position)?.note.toString()
+
+        val student = holder.itemView.findViewById<TextView>(R.id.textViewGradeStudentLastName)
+        student.text = getStudentCallback(grades.value?.get(position)?.studentCourseId!!)
+
+        val course = holder.itemView.findViewById<TextView>(R.id.textViewGradeCourse)
+        course.text = getCourseCallback(grades.value?.get(position)?.studentCourseId!!).toString()
+
     }
 
     override fun getItemCount(): Int = grades.value?.size ?: 0

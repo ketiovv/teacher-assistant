@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 class StudentViewModel(application: Application):AndroidViewModel(application) {
     val courseId = MutableLiveData<Int>()
+    val allStudents:LiveData<List<Student>>
     val students:LiveData<List<Student>>
 
     private val studentRepository:StudentRepository =
@@ -19,6 +20,8 @@ class StudentViewModel(application: Application):AndroidViewModel(application) {
 
 
     init{
+        allStudents = studentRepository.getAll
+
         // przy zmianie parametru - w tym przypadku courseId funkcja zostanie znowu wywołana
         students = Transformations.switchMap(courseId) { id ->
             if(id == 0) {
@@ -59,5 +62,9 @@ class StudentViewModel(application: Application):AndroidViewModel(application) {
         viewModelScope.launch {
             studentRepository.update(Student(student.id, newName, newSurname))
         }
+    }
+    fun getStudentLastName(studentId: Int): String{
+        val studentLastName = allStudents.value?.find { x -> x.id == studentId }?.lastName
+        return studentLastName?:"error"
     }
 }
