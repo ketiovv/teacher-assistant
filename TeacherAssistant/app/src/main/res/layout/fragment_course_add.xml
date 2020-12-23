@@ -30,19 +30,19 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNewCourseTitle"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.129" />
 
     <Button
         android:id="@+id/buttonAddCourse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="412dp"
+        android:layout_marginBottom="296dp"
         android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNewCourseLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNewCourseName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
