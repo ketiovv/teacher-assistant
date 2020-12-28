@@ -10,7 +10,6 @@ import com.example.teacherassistant.models.entities.Grade
 import com.example.teacherassistant.models.repositories.GradeRepository
 import com.example.teacherassistant.models.repositories.StudentCourseRepository
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import java.util.*
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -22,12 +21,12 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
     val courseId = MutableLiveData<Int>()
 
     val grades:LiveData<List<Grade>>
-    val allGrades:LiveData<List<Grade>>
-    var todaysGrades : LiveData<List<Grade>>
+    private val allGrades:LiveData<List<Grade>>
+    var currentDayGrades:LiveData<List<Grade>>
 
-    var reportDate: Calendar
+    var currentDate = MediatorLiveData<Calendar>()
 
-    val pairValues = MediatorLiveData<Pair<Int, Int>>().apply {
+    private val pairValues = MediatorLiveData<Pair<Int, Int>>().apply {
         addSource(studentId) {
             value = Pair(it, courseId.value!!)
         }
@@ -37,12 +36,6 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
     }
 
     init {
-        reportDate = Calendar.getInstance().also { c ->
-            c.set(Calendar.HOUR_OF_DAY, 0);
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.SECOND, 0);
-            c.set(Calendar.MILLISECOND, 0)
-        }
         allGrades = gradeRepository.readAll
         grades = Transformations.switchMap(pairValues) { pair ->
             val studentId = pair.first
@@ -51,12 +44,20 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
             return@switchMap gradeRepository.readAllGradesForStudentInCourse(studentId, courseId)
         }
 
-
-        // za kazdym razem jak zmienia sie allGrades - todaysGrades tez sie zupdateuja
-        todaysGrades = Transformations.map(allGrades) { grade ->
-            grade.filterNot { x -> x.date.before(reportDate.time )}
+        currentDate.value = Calendar.getInstance().also { c ->
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0)
         }
 
+        currentDayGrades = Transformations.switchMap(currentDate){
+            Transformations.map(allGrades) { grade ->
+                val nextDay = currentDate.value?.clone() as Calendar
+                nextDay.add(Calendar.DAY_OF_MONTH,1)
+                grade.filterNot { x -> x.date.before(currentDate.value?.time) || x.date.after(nextDay.time)}
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -76,5 +77,4 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
         this.studentId.value = student_id
         this.courseId.value = course_id
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.teacherassistant.views
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,8 +18,8 @@ import com.example.teacherassistant.viewmodels.GradeViewModel
 import com.example.teacherassistant.viewmodels.StudentCourseViewModel
 import com.example.teacherassistant.viewmodels.StudentViewModel
 import kotlinx.android.synthetic.main.fragment_report.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,6 +52,8 @@ class ReportFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,12 +65,12 @@ class ReportFragment : Fragment() {
 
         viewManager = LinearLayoutManager(context)
         reportAdapter = ReportAdapter(
-                gradeViewModel.todaysGrades,
+                gradeViewModel.currentDayGrades,
                 { x -> studentViewModel.getStudentLastName(studentCourseViewModel.getStudentId(x))},
                 { x -> courseViewModel.getCourseName(studentCourseViewModel.getCourseId(x)) }
         )
 
-        gradeViewModel.todaysGrades.observe(viewLifecycleOwner,{
+        gradeViewModel.currentDayGrades.observe(viewLifecycleOwner,{
             reportAdapter.notifyDataSetChanged()
         })
 
@@ -75,13 +78,33 @@ class ReportFragment : Fragment() {
         studentCourseViewModel.courseStudents.observe(viewLifecycleOwner){}
         courseViewModel.allCourses.observe(viewLifecycleOwner){}
 
+        gradeViewModel.currentDate.observe(viewLifecycleOwner){ cal ->
+            val format = SimpleDateFormat("dd/MM/yyyy")
+            textViewDateValue.text = format.format(cal.time).toString()
+            reportAdapter.notifyDataSetChanged()
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_report, container, false)
     }
 
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        buttonBackDate.setOnClickListener {
+            val backDay = gradeViewModel.currentDate.value?.clone() as Calendar
+            backDay.add(Calendar.DAY_OF_MONTH,-1)
+
+            gradeViewModel.currentDate.value = backDay
+        }
+        buttonNextDate.setOnClickListener {
+            val nextDay = gradeViewModel.currentDate.value?.clone() as Calendar
+            nextDay.add(Calendar.DAY_OF_MONTH,1)
+
+            gradeViewModel.currentDate.value = nextDay
+        }
 
         recyclerViewReport.apply{
             layoutManager = viewManager

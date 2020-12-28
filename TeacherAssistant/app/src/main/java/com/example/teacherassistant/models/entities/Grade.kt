@@ -19,5 +19,5 @@ data class Grade(@PrimaryKey(autoGenerate = true)
                  val id:Int,
                  val studentCourseId:Int,
                  val grade: Double,
-                 val note: String,
+                 var note: String,
                  val date: Date)
