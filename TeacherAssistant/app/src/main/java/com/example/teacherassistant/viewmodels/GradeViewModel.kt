@@ -77,4 +77,16 @@ class GradeViewModel(application: Application): AndroidViewModel(application) {
         this.studentId.value = student_id
         this.courseId.value = course_id
     }
+    fun setYesterday(){
+        val backDay = currentDate.value?.clone() as Calendar
+        backDay.add(Calendar.DAY_OF_MONTH,-1)
+
+        currentDate.value = backDay
+    }
+    fun setTomarrow(){
+        val nextDay = currentDate.value?.clone() as Calendar
+        nextDay.add(Calendar.DAY_OF_MONTH,1)
+
+        currentDate.value = nextDay
+    }
 }

@@ -19,7 +19,6 @@ import com.example.teacherassistant.viewmodels.StudentCourseViewModel
 import com.example.teacherassistant.viewmodels.StudentViewModel
 import kotlinx.android.synthetic.main.fragment_report.*
 import java.text.SimpleDateFormat
-import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,16 +93,10 @@ class ReportFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         buttonBackDate.setOnClickListener {
-            val backDay = gradeViewModel.currentDate.value?.clone() as Calendar
-            backDay.add(Calendar.DAY_OF_MONTH,-1)
-
-            gradeViewModel.currentDate.value = backDay
+            gradeViewModel.setYesterday()
         }
         buttonNextDate.setOnClickListener {
-            val nextDay = gradeViewModel.currentDate.value?.clone() as Calendar
-            nextDay.add(Calendar.DAY_OF_MONTH,1)
-
-            gradeViewModel.currentDate.value = nextDay
+            gradeViewModel.setTomarrow()
         }
 
         recyclerViewReport.apply{
